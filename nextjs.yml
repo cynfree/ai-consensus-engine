@@ -16,6 +16,7 @@ on:
 permissions:
   contents: read
   pages: write
+  # This is required for the deployment to GitHub Pages
   id-token: write
 
 # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
@@ -27,10 +28,13 @@ concurrency:
 jobs:
   # Build job
   build:
+    # Specify the operating system for the job
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      # Detects whether yarn or npm is used in the project
+      # and sets appropriate variables for subsequent steps.
       - name: Detect package manager
         id: detect-package-manager
         run: |
@@ -48,6 +52,7 @@ jobs:
             echo "Unable to determine package manager"
             exit 1
           fi
+      # Sets up Node.js environment
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
@@ -55,6 +60,7 @@ jobs:
           cache: ${{ steps.detect-package-manager.outputs.manager }}
       - name: Setup Pages
         uses: actions/configure-pages@v5
+        # Configuration for GitHub Pages with Next.js
         with:
           # Automatically inject basePath in your Next.js configuration file and disable
           # server side image optimization (https://nextjs.org/docs/api-reference/next/image#unoptimized).
@@ -62,6 +68,7 @@ jobs:
           # You may remove this line if you want to manage the configuration yourself.
           static_site_generator: next
       - name: Restore cache
+        # Caches .next/cache to speed up subsequent builds
         uses: actions/cache@v4
         with:
           path: |
@@ -71,10 +78,13 @@ jobs:
           # If source files changed but packages didn't, rebuild from a prior cache.
           restore-keys: |
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-
+      # Installs project dependencies
       - name: Install dependencies
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
+      # Builds the Next.js project
       - name: Build with Next.js
         run: ${{ steps.detect-package-manager.outputs.runner }} next build
+      # Uploads the build artifact for deployment
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
@@ -82,10 +92,13 @@ jobs:
 
   # Deployment job
   deploy:
+    # Define the deployment environment
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
+    # Specify the operating system for the job
     runs-on: ubuntu-latest
+    # This job depends on the 'build' job completing successfully
     needs: build
     steps:
       - name: Deploy to GitHub Pages
