@@ -1,0 +1,17 @@
+project-genesis/
+├── client/                 # Frontend application
+│   ├── index.html         # Your HTML file (modified)
+│   ├── js/
+│   │   └── app.js         # Client-side JavaScript
+│   └── css/
+│       └── styles.css     # Extracted styles
+├── server/                # Backend application
+│   ├── server.js          # Express server
+│   ├── routes/
+│   │   └── gemini.js      # Gemini API routes
+│   └── middleware/
+│       └── security.js    # Security middleware
+├── config/
+│   └── .env.example       # Environment variables template
+├── docker-compose.yml     # Docker configuration
+└── package.json           # Dependencies

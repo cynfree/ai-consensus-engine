@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Genesis</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.3.0/marked.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body class="bg-gray-900 text-gray-200">
+    <div class="container mx-auto p-4 md:p-8">
+        <!-- Header -->
+        <header class="text-center mb-8">
+            <h1 class="text-4xl md:text-5xl font-bold text-white tracking-tight">Project Genesis</h1>
+            <p class="text-lg md:text-xl text-blue-400 mt-2">Simulated AI Personas for Decision Support</p>
+        </header>
+
+        <!-- Input Section -->
+        <div class="bg-gray-800 p-6 rounded-2xl shadow-lg mb-8">
+            <label for="problem-input" class="block text-lg font-semibold mb-3 text-gray-100">Enter Problem or Decision</label>
+            <textarea id="problem-input" rows="4" class="w-full bg-gray-700 border border-gray-600 rounded-lg p-4 text-gray-200 focus:ring-2 focus:ring-blue-500 focus:outline-none transition" placeholder="e.g., 'Design a user authentication system for a new mobile banking app...'"></textarea>
+            <div class="mt-4 text-center">
+                <button id="analyze-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg text-lg transition-transform transform hover:scale-105 shadow-md">
+                    Synthesize Perspectives
+                </button>
+            </div>
+        </div>
+        
+        <!-- Status Message -->
+        <div id="status-message" class="text-center my-4 text-lg text-yellow-400" style="display: none;"></div>
+
+        <!-- Results Section -->
+        <div id="results-section" class="space-y-8" style="display: none;">
+            
+            <!-- Persona Responses -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Claude Panel -->
+                <div id="claude-card" class="persona-card bg-gray-800 p-6 rounded-2xl shadow-lg">
+                    <h2 class="text-2xl font-bold mb-3 text-white border-b-2 border-green-500 pb-2">Claude</h2>
+                    <p class="text-sm text-green-400 font-medium mb-4">Security, Safety & Accessibility</p>
+                    <div id="claude-response" class="prose max-w-none"></div>
+                </div>
+
+                <!-- GPT Panel -->
+                <div id="gpt-card" class="persona-card bg-gray-800 p-6 rounded-2xl shadow-lg">
+                    <h2 class="text-2xl font-bold mb-3 text-white border-b-2 border-purple-500 pb-2">GPT</h2>
+                    <p class="text-sm text-purple-400 font-medium mb-4">Creative Design & User Experience</p>
+                    <div id="gpt-response" class="prose max-w-none"></div>
+                </div>
+
+                <!-- Gemini Panel -->
+                <div id="gemini-card" class="persona-card bg-gray-800 p-6 rounded-2xl shadow-lg">
+                    <h2 class="text-2xl font-bold mb-3 text-white border-b-2 border-cyan-500 pb-2">Gemini</h2>
+                    <p class="text-sm text-cyan-400 font-medium mb-4">Efficiency & Optimization</p>
+                    <div id="gemini-response" class="prose max-w-none"></div>
+                </div>
+            </div>
+
+            <!-- Synthesis Panel -->
+            <div>
+                <div id="synthesis-card" class="synthesis-card bg-gray-800 border-2 border-blue-500 p-6 rounded-2xl shadow-2xl">
+                    <h2 class="text-3xl font-bold mb-4 text-white">Unified Recommendation</h2>
+                    <div id="synthesis-response" class="prose max-w-none text-lg"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/app.js"></script>
+</body>
+</html>
